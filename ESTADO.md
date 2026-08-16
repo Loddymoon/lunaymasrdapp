@@ -146,7 +146,14 @@ App que guía a padres y madres de niños de 1 a 4 años a estimular el desarrol
   `proxy.ts` en la raíz (Next 16 renombró `middleware.ts` → `proxy.ts`, migrado) protegiendo SOLO
   `/app/*` — probado en vivo: pidió el correo, mandó el OTP contra la API real de Supabase, y al
   visitar `/app` sin sesión redirigió a `/login?next=%2Fapp` correctamente. `app/auth/confirm/route.ts`
-  procesa el enlace del correo. `app/app/perfil/page.tsx` ya tiene botón "Cerrar sesión".
+  procesa el enlace del correo. `app/app/perfil/page.tsx` ya tiene botón "Cerrar sesión". EN
+  PRODUCCIÓN (vercel.app) también verificado con captura real 2026-08-16: `/login` carga bien y el
+  mensaje de límite de envíos apareció, confirmando que sí llega a la API real de Supabase. Hubo un
+  bache real en el camino: el primer deploy con este código se cayó en Vercel (faltaban las
+  variables `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`); al agregarlas, la
+  traducción automática de Chrome tradujo los NOMBRES de las variables al español por accidente
+  (quedaron ilegibles para el código) — diagnosticado por captura de pantalla, corregido borrando
+  las mal nombradas y re-creándolas con el nombre exacto. Ya resuelto, sitio en línea.
   PENDIENTE (no hecho todavía): (a) conectar el resto del código (`lib/progreso.ts`, onboarding,
   children/retos_completados) contra las tablas reales — hoy el progreso sigue viviendo en
   localStorage/sessionStorage, el login funciona pero no hay TODAVÍA una fila en `children` ni en
