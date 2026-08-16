@@ -39,4 +39,5 @@ supabase/.temp
 
 # typescript
 *.tsbuildinfo
+.tsbuildinfo-hook
 next-env.d.ts

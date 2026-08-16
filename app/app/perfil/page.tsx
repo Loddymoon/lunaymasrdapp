@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Volume2, Vibrate } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Volume2, Vibrate, LogOut } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 function leerAjuste(clave: string, porDefecto: boolean) {
   if (typeof window === 'undefined') return porDefecto;
@@ -41,9 +43,20 @@ function Toggle({ activo, onChange }: { activo: boolean; onChange: (v: boolean) 
 /* Pantalla secundaria (checklist, sin gate de revisor-visual). Los mismos
    ajustes que ya lee components/shared/AchievementCelebration.tsx. */
 export default function PerfilPage() {
+  const router = useRouter();
   const [nombreNino] = useState(leerNombreNino);
   const [sonido, setSonido] = useState(() => leerAjuste('hablapronto_sonido', true));
   const [vibracion, setVibracion] = useState(() => leerAjuste('hablapronto_vibracion', true));
+  const [saliendo, setSaliendo] = useState(false);
+
+  async function cerrarSesion() {
+    if (saliendo) return;
+    setSaliendo(true);
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/');
+    router.refresh();
+  }
 
   function cambiarSonido(v: boolean) {
     setSonido(v);
@@ -85,6 +98,15 @@ export default function PerfilPage() {
           <Toggle activo={vibracion} onChange={cambiarVibracion} />
         </div>
       </div>
+
+      <button
+        onClick={cerrarSesion}
+        disabled={saliendo}
+        className="mt-6 flex items-center justify-center gap-2 rounded-[var(--radius-card)] border-2 border-[color-mix(in_oklab,var(--text-primary)_10%,transparent)] bg-[var(--surface)] p-4 text-[14px] font-semibold text-[var(--text-secondary)] disabled:opacity-60 [touch-action:manipulation]"
+      >
+        <LogOut size={16} />
+        {saliendo ? 'Saliendo…' : 'Cerrar sesión'}
+      </button>
     </div>
   );
 }

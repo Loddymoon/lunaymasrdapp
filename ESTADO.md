@@ -27,8 +27,15 @@ desactivar las antiguas; la nueva `sb_secret_...` ya quedó guardada en `.env.lo
 quedó escrito en ESTADO.md ni en el repositorio (verificado: `.env.local` sigue fuera de git).
 El usuario confirmó que ya desactivó las claves antiguas (Legacy API Keys) en Supabase — incidente
 cerrado, la clave expuesta en el chat quedó inservible.
-Siguiente paso exacto: pedirle al usuario crear un repositorio vacío en GitHub y darme la URL para
-conectar el remoto y hacer el primer push (P2 del protocolo). Las pantallas de producto
+Repositorio conectado y publicado: https://github.com/Loddymoon/lunaymasrdapp (rama `main`, 2
+commits) — el usuario ya lo cambió a PRIVADO.
+Vercel conectado y VERIFICADO con la API de Vercel (no solo de palabra): proyecto
+`lunaymasrdapp` (prj_CTuDuIiwtBGSmbSIfAassYf4tGsS), framework Next.js autodetectado, último deploy
+READY en producción con el SHA a9f810b (coincide exacto con el último push), disparado por GitHub
+(no por `vercel --prod` ni `vercel link`) — conexión persistente confirmada. Dominios activos:
+lunaymasrdapp.vercel.app (+ alias por rama). Siguiente paso exacto: conectar Supabase (P3 — MCP de
+Supabase ya autorizado en esta sesión, usar para verificar el proyecto sin tocar credenciales
+directamente), luego dominio propio, luego Hotmart/Resend. Las pantallas de producto
 (landing/onboarding/paywall/app-inicio/app-camino) siguen "NO LISTA" — pausadas a propósito, ver
 Problemas conocidos.
 🧩 Aparte #1 (a pedido del usuario): `components/shared/AchievementCelebration.tsx` — celebración al completar un reto, coreografía calcada del JSON del usuario, imagen real ya copiada a `public/logros/estrella-trofeo.png` (el usuario la había guardado en la raíz del proyecto como "ChatGPT Image 13 ago...png"; NO se tocó el otro archivo similar de un perrito que también dejó en la raíz, ni "aguafiestas.png" — no pedidos). Verificado renderizando en vivo (capturas a 800ms/1400ms): pop, confeti y banner se ven bien. tsc ✓ build ✓. NO integrado a ninguna pantalla todavía (Sesión 5).
@@ -123,7 +130,31 @@ App que guía a padres y madres de niños de 1 a 4 años a estimular el desarrol
 - Qué NO construir todavía: red social de padres, avatares 3D, multilenguaje, alfabetización preescolar avanzada
 - Modelo de IA: NO se usa IA generativa en el MVP — el contenido son grabaciones humanas reales (evita el riesgo de sonar "robótico", que es justo la queja #1 de calidad de la competencia); posible IA futura: retroalimentación de pronunciación por reconocimiento de voz, pospuesta hasta validar retención y evitar cualquier promesa de tipo clínico/diagnóstico
 - Auth: Supabase Auth con enlace mágico (magic link, sin contraseña) — más simple para el padre no técnico; variante "preview anónimo → paywall → login" para no pedir cuenta antes de que el padre vea el valor
-- Modelo de datos (alto nivel): perfiles de padres · perfiles de niño (edad, nombre) · catálogo de retos por edad/fonema · progreso del niño (sonidos/palabras dominadas, rachas) · estado de suscripción — con RLS: cada padre solo ve sus propios hijos y su propio progreso
+- Modelo de datos: IMPLEMENTADO en Supabase (proyecto ybexrvwkszdtqpnvcaax, 2026-08-16) vía
+  `apply_migration` del MCP — 4 tablas, todas con RLS activo y 0 alertas de seguridad
+  (`get_advisors` limpio): `profiles` (1:1 con auth.users, se crea sola vía trigger
+  `on_auth_user_created` al registrarse) · `children` (nombre/edad/nivel/meta/momento/minutos,
+  ligada a `profiles.id`, RLS por `parent_id = auth.uid()`) · `retos_completados` (reemplaza el
+  localStorage de `lib/progreso.ts`; `reto_id` referencia el catálogo estático de
+  `lib/curriculo.ts`, no una tabla — el catálogo sigue siendo código; RLS vía función
+  `private.es_dueno_del_nino()`) · `suscripciones` (estado de pago, SOLO LECTURA para el
+  usuario — la escribirá el webhook de Hotmart con la service_role key cuando se construya esa
+  integración, nunca el cliente). Catálogo completo en la migración
+  `esquema_inicial_perfiles_ninos_progreso` + fix `fix_search_path_set_updated_at`.
+  Login IMPLEMENTADO y verificado en el navegador (2026-08-16): `/login` real con enlace mágico +
+  código de 6 dígitos (`docs/sistema/26-AUTH-MODERNO.md`), `lib/supabase/{client,server,middleware}.ts`,
+  `proxy.ts` en la raíz (Next 16 renombró `middleware.ts` → `proxy.ts`, migrado) protegiendo SOLO
+  `/app/*` — probado en vivo: pidió el correo, mandó el OTP contra la API real de Supabase, y al
+  visitar `/app` sin sesión redirigió a `/login?next=%2Fapp` correctamente. `app/auth/confirm/route.ts`
+  procesa el enlace del correo. `app/app/perfil/page.tsx` ya tiene botón "Cerrar sesión".
+  PENDIENTE (no hecho todavía): (a) conectar el resto del código (`lib/progreso.ts`, onboarding,
+  children/retos_completados) contra las tablas reales — hoy el progreso sigue viviendo en
+  localStorage/sessionStorage, el login funciona pero no hay TODAVÍA una fila en `children` ni en
+  `profiles` usándose de verdad; (b) personalizar la plantilla del correo de acceso en el dashboard
+  de Supabase (Authentication → Email Templates) para que incluya el código de 6 dígitos
+  (`{{ .Token }}`) además del enlace — el código YA se verifica en el código si el usuario lo recibe,
+  pero la plantilla por defecto de Supabase solo trae el enlace; (c) revisor-visual de `/login`
+  (pantalla de un tipo nuevo — pendiente, no es una de las 4 del dinero pero sí "primera de su tipo").
 - Riesgo regulatorio: app usada por/sobre menores → aviso explícito de que es herramienta educativa de apoyo, NO diagnóstico ni terapia clínica; privacidad de datos de menores se revisa a fondo en Sesión 6 (`47-LEGAL-FISCAL-Y-PRIVACIDAD.md`)
 
 ## Sesiones completadas ✅
