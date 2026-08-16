@@ -12,12 +12,25 @@ dispara renders en cascada) en: `components/landing/Oferta.tsx`, `app/paywall/pa
 `app/app/page.tsx` (x3), `components/shared/AchievementCelebration.tsx`, y recién
 `app/onboarding/page.tsx` (el más complejo: restauraba 2 estados a la vez desde sessionStorage —
 convertido a inicializadores perezosos de useState, efecto eliminado por completo).
-Siguiente paso exacto: correr `npm run lint` de nuevo para confirmar cero errores reales
-(faltaba revisar si `app/app/camino/page.tsx`, `puntuacion/page.tsx`, `perfil/page.tsx` y
-`avance/page.tsx` tienen el mismo patrón, más 2-3 warnings menores sueltos de rondas anteriores) →
-`tsc --noEmit` + `npm run build` → `git init` + primer commit → pedirle al usuario crear el
-repositorio en GitHub para conectar. Las pantallas de producto (landing/onboarding/paywall/
-app-inicio/app-camino) siguen "NO LISTA" — pausadas a propósito, ver Problemas conocidos.
+Hecho además: los mismos 4 archivos (`camino`, `puntuacion`, `perfil`, `avance`) corregidos con el
+mismo patrón, más 2 warnings sueltos limpiados (`Hero.tsx` usaba `<a>` en vez de `<Link>` para
+navegación interna — error real de Next.js, corregido; prop no usada eliminada). `npm run lint`
+queda en 0 errores (1 warning menor no bloqueante: `<img>` sin `next/image` en un mockup
+decorativo de la landing). `tsc --noEmit` y `npm run build` limpios. `git init` hecho, primer
+commit creado (341 archivos, sin secretos — verificado que node_modules/.next/.env quedaron
+excluidos). Identidad de git configurada SOLO en este repo (no global) con el correo del usuario.
+Además: `.env.local` (solo local, ignorado por git) ya tiene la URL del proyecto de Supabase y la
+clave publishable/anon configuradas; la clave secreta (`SUPABASE_SECRET_KEY`) tuvo un incidente
+menor — el usuario pegó por error la clave antigua tipo servicio (formato JWT) directamente en el
+chat — se le pidió migrar a las claves nuevas de Supabase (`sb_publishable_`/`sb_secret_`) y
+desactivar las antiguas; la nueva `sb_secret_...` ya quedó guardada en `.env.local`. Ningún secreto
+quedó escrito en ESTADO.md ni en el repositorio (verificado: `.env.local` sigue fuera de git).
+El usuario confirmó que ya desactivó las claves antiguas (Legacy API Keys) en Supabase — incidente
+cerrado, la clave expuesta en el chat quedó inservible.
+Siguiente paso exacto: pedirle al usuario crear un repositorio vacío en GitHub y darme la URL para
+conectar el remoto y hacer el primer push (P2 del protocolo). Las pantallas de producto
+(landing/onboarding/paywall/app-inicio/app-camino) siguen "NO LISTA" — pausadas a propósito, ver
+Problemas conocidos.
 🧩 Aparte #1 (a pedido del usuario): `components/shared/AchievementCelebration.tsx` — celebración al completar un reto, coreografía calcada del JSON del usuario, imagen real ya copiada a `public/logros/estrella-trofeo.png` (el usuario la había guardado en la raíz del proyecto como "ChatGPT Image 13 ago...png"; NO se tocó el otro archivo similar de un perrito que también dejó en la raíz, ni "aguafiestas.png" — no pedidos). Verificado renderizando en vivo (capturas a 800ms/1400ms): pop, confeti y banner se ven bien. tsc ✓ build ✓. NO integrado a ninguna pantalla todavía (Sesión 5).
 
 🧩 Aparte #2 (a pedido del usuario — RESUELTO, ejecutado): pidió usar una imagen nueva (5 niños + wordmark "Habla Pronto") como isotipo oficial. Se preguntó el alcance (reemplaza la identidad ya aprobada) y el usuario eligió "reemplazar en toda la app", aceptando perder la aprobación de landing/onboarding/paywall. Ejecutado: `components/shared/HablaProntoLogo.tsx` (tamaños small/medium/large/hero, prop `marco` porque el archivo no trae fondo transparente — se enmarca en tarjeta mientras no llegue una versión limpia), imagen en `public/logo/isotipo-habla-pronto.png`, ya en el header de la landing (`app/page.tsx`→`Hero`), header del paywall, y pantalla de carga del onboarding. FICHA-ARTE.md actualizada con la nota de este cambio. Pendiente (Sesión 5, pantallas que no existen aún): menú, perfil, logros, modal de felicitación, favicon (este último necesita un recorte simplificado — la composición completa no se lee a 16-32px).
@@ -169,6 +182,11 @@ App que guía a padres y madres de niños de 1 a 4 años a estimular el desarrol
 - Sesión 8: Adquisición, lanzamiento y backoffice
 
 ## Problemas conocidos ⚠️
+- Veredictos de landing/onboarding/paywall/app-inicio/app-camino PENDIENTES de re-verificación:
+  la Sesión 6 tocó `.tsx` de esas pantallas (SOLO fixes de lint `react-hooks/set-state-in-effect`,
+  cero cambio visual/de layout), así que el veredicto guardado quedó técnicamente más viejo que el
+  código. Todas siguen NO LISTA igual que antes — no se relanza el revisor-visual hasta terminar la
+  Sesión 6 (evita gastar revisiones en código que puede seguir cambiando).
 - app-inicio (pantalla "Inicio" de la app interna) NO LISTA (PENDIENTE) — 4 rondas (2026-08-16).
   Última: 34/40 usab. (falta llegar a 36), 16/20 craft ✓. Ver docs/revisiones/app-inicio-veredicto.md.
   Pausado a propósito, mismo criterio que Sesión 4 (meseta de rondas, ver nota de patrón abajo).
