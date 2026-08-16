@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:250px;height:542px;overflow:hidden;}
+body{
+  font-family:'Baloo 2', sans-serif;
+  background:#fbeed2;
+  color:#33291c;
+  display:flex;flex-direction:column;
+  padding:18px 16px;
+}
+.wordmark{font-weight:800;font-size:13px;color:#d9720c;-webkit-text-stroke:1px #33291c;letter-spacing:-0.01em;margin-bottom:10px;}
+.card{background:#fffdf5;border:2px solid rgba(51,41,28,.14);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;justify-content:center;gap:8px;}
+.mic{width:52px;height:52px;border-radius:16px;background:linear-gradient(180deg,#f2a355,#d9720c);border:2px solid #6a3c08;display:flex;align-items:center;justify-content:center;}
+.mic svg{width:24px;height:24px;color:#3a2205;}
+.word{font-size:20px;font-weight:800;}
+.word b{color:#d9720c;}
+.pill{background:#1b7a52;color:#fbeed2;font-weight:700;font-size:11px;border-radius:999px;padding:6px 14px;margin-top:6px;}
+.stars{display:flex;gap:4px;}
+.star{width:16px;height:16px;color:#e0a300;}
+.mascot{width:44px;height:44px;border-radius:999px;background:#d1435a;}
+.progress{width:100%;height:8px;border-radius:999px;background:#ffe6b8;overflow:hidden;}
+.progress i{display:block;height:100%;background:#1b7a52;}
+.small{font-size:10px;color:#6c5d45;font-weight:600;}

@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HablaPronto — Direcciones visuales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+    --ease-out: cubic-bezier(0.16,1,0.3,1);
+    --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(242,140,27,0.10), transparent 60%),
+      radial-gradient(800px 500px at 90% 10%, rgba(47,168,216,0.10), transparent 55%),
+      #17130E;
+    color:#F1EAE0;
+    font-family:'Fredoka', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1320px;margin:0 auto;padding:var(--space-12) var(--space-6) var(--space-16);}
+  .head{max-width:720px;margin:0 auto var(--space-12);text-align:center;}
+  .head h1{
+    font-family:'Baloo 2', monospace;
+    font-weight:800;
+    font-size:34px;
+    letter-spacing:-0.02em;
+    line-height:1.15;
+    margin:0 0 var(--space-3);
+    color:#FBF3E7;
+  }
+  .head p{
+    font-size:16px;
+    line-height:1.5;
+    color:#C9BEB0;
+    margin:0 0 var(--space-6);
+  }
+  .head .cta-row{display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;}
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.10);
+    color:#E7DFD3;
+    padding:8px 16px;
+    border-radius:999px;
+    font-size:13px;font-weight:600;
+  }
+  .row{
+    display:flex;
+    gap:var(--space-8);
+    justify-content:center;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .option{width:340px;display:flex;flex-direction:column;align-items:center;}
+
+  /* ===== DEVICE CHASSIS ===== */
+  .device{
+    position:relative;
+    width:320px;height:660px;
+    border-radius:44px;
+    padding:14px;
+    background:linear-gradient(155deg,#2A2620,#161310);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.55),
+      0 10px 24px -8px rgba(0,0,0,0.45),
+      inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .device .screen{
+    position:relative;
+    width:100%;height:100%;
+    border-radius:32px;
+    overflow:hidden;
+    background:var(--bg);
+    display:flex;flex-direction:column;
+  }
+  .island{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:96px;height:26px;background:#0C0A08;border-radius:999px;z-index:5;
+  }
+  .statusbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px var(--space-6) 4px;
+    font-family:'Baloo 2', monospace;
+    font-weight:700;font-size:14px;color:var(--text);
+    font-variant-numeric:tabular-nums;
+  }
+  .statusicons{display:flex;align-items:center;gap:5px;}
+  .home-indicator{
+    position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+    width:120px;height:5px;border-radius:999px;background:rgba(0,0,0,0.18);
+  }
+
+  /* ===== SCREEN CONTENT (shared skeleton) ===== */
+  .content{flex:1;display:flex;flex-direction:column;min-height:0;padding:0 var(--space-4) 0;}
+  .app-head{display:flex;align-items:center;justify-content:space-between;padding:var(--space-2) 0 var(--space-3);}
+  .brand{display:flex;align-items:center;gap:8px;}
+  .brand .logo-chip{
+    width:30px;height:30px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--brand-primary);color:var(--brand-primary-text, #fff);
+  }
+  .brand .logo-chip svg{width:16px;height:16px;}
+  .brand span{font-family:'Baloo 2', monospace;font-weight:700;font-size:15px;color:var(--text);}
+  .streak{
+    display:flex;align-items:center;gap:5px;
+    background:var(--surface-elevated);
+    border:1px solid var(--border);
+    padding:6px 10px;border-radius:999px;
+    font-weight:700;font-size:13px;color:var(--text);
+    font-variant-numeric:tabular-nums;
+  }
+  .streak svg{width:15px;height:15px;color:var(--brand-primary);}
+
+  .greeting{margin:var(--space-2) 0 var(--space-4);}
+  .greeting h2{
+    font-family:var(--font-display);
+    font-weight:800;font-size:22px;line-height:1.2;
+    letter-spacing:-0.01em;
+    margin:0 0 4px;color:var(--text);
+  }
+  .greeting p{margin:0;font-size:14px;color:var(--text-secondary);line-height:1.4;}
+  .greeting b{color:var(--brand-primary-text2, var(--text));}
+
+  .icon-chip{
+    width:40px;height:40px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .icon-chip svg{width:20px;height:20px;}
+
+  .scroll-area{flex:1;overflow:hidden;padding-bottom:var(--space-2);}
+
+  .bottomnav{
+    display:flex;align-items:stretch;justify-content:space-around;
+    padding:10px var(--space-3) 22px;
+    background:var(--surface);
+    border-top:1px solid var(--border);
+  }
+  .navitem{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-secondary);}
+  .navitem svg{width:21px;height:21px;}
+  .navitem span{font-size:10.5px;font-weight:600;}
+  .navitem.active{color:var(--brand-primary-text2, var(--brand-primary));}
+  .navitem.active svg{color:var(--brand-primary);}
+
+  .progressrow{
+    display:flex;align-items:center;gap:var(--space-3);
+    background:var(--surface-elevated);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:12px 14px;
+    margin-top:var(--space-4);
+  }
+  .ring{width:40px;height:40px;flex:none;}
+  .progresstext{flex:1;min-width:0;}
+  .progresstext strong{display:block;font-size:13px;font-weight:700;color:var(--text);}
+  .progresstext span{font-size:11.5px;color:var(--text-secondary);}
+
+  /* ===== CAPTION CARD BELOW DEVICE ===== */
+  .caption{
+    margin-top:var(--space-6);
+    width:320px;
+    background:rgba(255,255,255,0.035);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:var(--space-4) var(--space-4) var(--space-6);
+  }
+  .caption .tag{
+    display:inline-block;font-family:'Baloo 2', monospace;font-weight:800;
+    font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
+    padding:4px 10px;border-radius:999px;margin-bottom:10px;
+    color:#17130E;
+  }
+  .caption h3{
+    font-family:'Baloo 2', monospace;font-weight:700;font-size:19px;
+    margin:0 0 6px;color:#FBF3E7;
+  }
+  .caption p{font-size:13.5px;line-height:1.5;color:#C9BEB0;margin:0 0 14px;}
+  .swatches{display:flex;gap:8px;margin-bottom:14px;}
+  .swatch{width:28px;height:28px;border-radius:9px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15);}
+  .specimen{display:flex;flex-direction:column;gap:2px;}
+  .specimen .disp{font-size:20px;font-weight:700;color:#FBF3E7;}
+  .specimen .sub{font-size:11px;color:#8C8272;}
+
+  /* ===================== OPTION A — BLOQUES DE JUEGO ===================== */
+  .opt-a{
+    --bg:#FDF8EC; --surface:#FFFEF7; --surface-elevated:#FFF3DF;
+    --text:#33291C; --text-secondary:#9A8C74; --border:#F0E1C4;
+    --brand-primary:#F28C1B; --brand-primary-text:#3A2205; --brand-primary-text2:#B8590A;
+    --brand-secondary:#2FA8D8;
+    --font-display:'Baloo 2', monospace;
+  }
+  .opt-a .caption .tag{background:#F28C1B;}
+  .opt-a .hero-block{
+    background:var(--surface-elevated);
+    border:2px solid #EAD1A0;
+    border-bottom:6px solid #E3B15A;
+    border-radius:22px;
+    padding:var(--space-4);
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    box-shadow:0 1px 0 rgba(255,255,255,0.6) inset;
+  }
+  .opt-a .word-block{
+    font-family:'Baloo 2', monospace;font-weight:800;font-size:30px;letter-spacing:-0.01em;
+    color:var(--text); margin:10px 0 4px;
+  }
+  .opt-a .letter{color:var(--brand-primary);}
+  .opt-a .mic-btn{
+    width:76px;height:76px;border-radius:24px;
+    background:linear-gradient(180deg,#FFA53D,#F28C1B);
+    border-bottom:6px solid #C56A08;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 18px -6px rgba(242,140,27,0.55);
+    margin:14px 0 6px;
+  }
+  .opt-a .mic-btn svg{width:32px;height:32px;color:#3A2205;}
+  .opt-a .cta-word{font-size:12.5px;font-weight:700;color:var(--text-secondary);}
+  .opt-a .stars{display:flex;gap:6px;margin-top:12px;}
+  .opt-a .star{width:22px;height:22px;color:#E3B15A;}
+  .opt-a .star.filled{color:var(--brand-primary);}
+
+  /* ===================== OPTION B — BURBUJA HABLADORA ===================== */
+  .opt-b{
+    --bg:#FCF7EA; --surface:#FFFEF8; --surface-elevated:#EAF6FB;
+    --text:#25313A; --text-secondary:#8CA0AB; --border:#DCEEF4;
+    --brand-primary:#2FA8D8; --brand-primary-text:#082733; --brand-primary-text2:#1D7FA8;
+    --brand-secondary:#F28C1B;
+    --font-display:'Fredoka', sans-serif;
+  }
+  .opt-b .caption .tag{background:#2FA8D8;}
+  .opt-b .mascot-wrap{display:flex;justify-content:center;margin-bottom:-14px;position:relative;z-index:2;}
+  .opt-b .mascot{width:64px;height:64px;}
+  .opt-b .bubble{
+    position:relative;
+    background:var(--surface-elevated);
+    border:2px solid #C9E8F2;
+    border-radius:26px;
+    padding:var(--space-6) var(--space-4) var(--space-4);
+    text-align:center;
+  }
+  .opt-b .bubble::after{
+    content:'';position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);
+    width:22px;height:22px;background:var(--surface-elevated);
+    border-right:2px solid #C9E8F2;border-bottom:2px solid #C9E8F2;
+    border-radius:0 0 6px 0;
+    clip-path:polygon(0 0,100% 0,0 100%);
+  }
+  .opt-b .word-bubble{
+    font-family:'Fredoka', sans-serif;font-weight:700;font-size:27px;color:var(--text);
+    margin:6px 0 2px;
+  }
+  .opt-b .letter{color:var(--brand-primary);}
+  .opt-b .wave{display:flex;align-items:flex-end;gap:4px;height:34px;margin:16px 0 8px;justify-content:center;}
+  .opt-b .wave i{
+    display:block;width:5px;border-radius:3px;
+    background:var(--brand-primary);opacity:0.85;
+  }
+  .opt-b .mic-btn{
+    width:72px;height:72px;border-radius:999px;
+    background:radial-gradient(circle at 35% 30%, #5CC5EA, #2FA8D8 70%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 20px -6px rgba(47,168,216,0.5), 0 0 0 6px rgba(47,168,216,0.12);
+    margin:0 auto 6px;
+  }
+  .opt-b .mic-btn svg{width:30px;height:30px;color:#fff;}
+
+  /* ===================== OPTION C — CUENTO CÁLIDO ===================== */
+  .opt-c{
+    --bg:#FBF3E3; --surface:#FFFAF0; --surface-elevated:#F7E9CF;
+    --text:#3B2E1E; --text-secondary:#A6957A; --border:#EDDDB9;
+    --brand-primary:#D97D3E; --brand-primary-text:#33190A; --brand-primary-text2:#B0602A;
+    --brand-secondary:#E8B04D;
+    --font-display:'Baloo 2', monospace;
+  }
+  .opt-c .caption .tag{background:#D97D3E;}
+  .opt-c .screen{
+    background-image:
+      radial-gradient(rgba(59,46,30,0.05) 1px, transparent 1px),
+      var(--bg);
+    background-size:14px 14px, auto;
+    background-color:var(--bg);
+  }
+  .opt-c .storycard{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:var(--space-4);
+    text-align:center;
+    box-shadow:0 1px 2px rgba(59,46,30,0.06), 0 10px 24px -14px rgba(59,46,30,0.25);
+  }
+  .opt-c .word-story{
+    font-family:'Baloo 2', monospace;font-weight:600;font-size:28px;color:var(--text);margin:8px 0 4px;
+  }
+  .opt-c .letter{color:var(--brand-primary);}
+  .opt-c .mic-btn{
+    width:70px;height:70px;border-radius:999px;
+    background:var(--surface-elevated);
+    border:2px solid var(--brand-secondary);
+    display:flex;align-items:center;justify-content:center;
+    margin:14px auto 8px;
+  }
+  .opt-c .mic-btn svg{width:28px;height:28px;color:var(--brand-primary);}
+  .opt-c .timeline{display:flex;align-items:center;gap:6px;margin-top:14px;}
+  .opt-c .tnode{width:9px;height:9px;border-radius:999px;background:var(--border);flex:none;}
+  .opt-c .tnode.done{background:var(--brand-secondary);}
+  .opt-c .tnode.active{background:var(--brand-primary);width:12px;height:12px;}
+  .opt-c .tline{flex:1;height:2px;background:var(--border);}
+
+  @media (max-width:1100px){ .row{flex-direction:column;align-items:center;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>Elige la dirección visual de HablaPronto</h1>
+    <p>Tres formas distintas de vestir la misma pantalla — el "Reto de hoy" que tu app le muestra a la familia todos los días. Puedes elegir una completa, combinar detalles de varias, o pedirme otras 3 opciones.</p>
+    <div class="cta-row">
+      <span class="pill">Elegir A, B o C</span>
+      <span class="pill">Combinar lo mejor de cada una</span>
+      <span class="pill">Pedir otras 3</span>
+      <span class="pill">Ajustar un detalle</span>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- ============ OPTION A ============ -->
+    <div class="option opt-a">
+      <div class="device">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="statusicons">
+              <svg viewBox="0 0 20 12" width="18" height="11" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="10" y="2" width="3" height="10" rx="0.5" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 12" width="22" height="11" fill="none"><rect x="0.5" y="0.5" width="19" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="15" height="8" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+          <div class="content">
+            <div class="app-head">
+              <div class="brand">
+                <div class="logo-chip"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v14M8 7l4-4 4 4M6 21h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <span>HablaPronto</span>
+              </div>
+              <div class="streak">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c1.5 1 2 3 2 4.5A5.5 5.5 0 0 1 6 15.5C6 10 12 8 12 2Z" fill="currentColor"/></svg>
+                <span>5 días</span>
+              </div>
+            </div>
+
+            <div class="greeting">
+              <h2>¡Hola, Mateo!</h2>
+              <p>Hoy toca practicar la letra <b>A</b> · reto de 5 minutos</p>
+            </div>
+
+            <div class="scroll-area">
+              <div class="hero-block">
+                <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
+                  <circle cx="32" cy="32" r="30" fill="#FCE3B8"/>
+                  <g stroke="#B8590A" stroke-width="2.4" stroke-linecap="round">
+                    <path d="M24 26 14 20M24 30 12 30M24 34 14 40"/>
+                    <path d="M40 26 50 20M40 30 52 30M40 34 50 40"/>
+                  </g>
+                  <ellipse cx="32" cy="24" rx="6" ry="5.5" fill="#3A2205"/>
+                  <ellipse cx="32" cy="35" rx="10.5" ry="9.5" fill="#3A2205"/>
+                  <circle cx="29" cy="23" r="1.6" fill="#FCE3B8"/>
+                  <circle cx="35" cy="23" r="1.6" fill="#FCE3B8"/>
+                </svg>
+                <div class="word-block"><span class="letter">A</span>RAÑA</div>
+                <div class="cta-word">Toca el botón y repite conmigo</div>
+                <div class="mic-btn"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="stars">
+                  <svg class="star filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.8 7.1-.6z"/></svg>
+                  <svg class="star filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.8 7.1-.6z"/></svg>
+                  <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.8 7.1-.6z"/></svg>
+                </div>
+              </div>
+
+              <div class="progressrow">
+                <svg class="ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" stroke="#F0E1C4" stroke-width="5" fill="none"/><circle cx="20" cy="20" r="16" stroke="#F28C1B" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="35" transform="rotate(-90 20 20)"/></svg>
+                <div class="progresstext"><strong>6 de 9 sonidos dominados</strong><span>Vocal A casi completa</span></div>
+              </div>
+            </div>
+
+            <div class="bottomnav">
+              <div class="navitem active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Hoy</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M11 20V4M18 20v-7"/></svg><span>Progreso</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/></svg><span>Biblioteca</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Ajustes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <div class="caption">
+        <span class="tag" style="color:#3A2205;">Opción A</span>
+        <h3>Bloques de Juego</h3>
+        <p>Botones gruesos que se "hunden" al tocarlos, como piezas de madera — pensada para que un niño de 2-3 años sepa exactamente dónde tocar. La energía de Duolingo, con tu propia paleta cálida.</p>
+        <div class="swatches">
+          <div class="swatch" style="background:#FDF8EC;"></div>
+          <div class="swatch" style="background:#F28C1B;"></div>
+          <div class="swatch" style="background:#2FA8D8;"></div>
+          <div class="swatch" style="background:#33291C;"></div>
+        </div>
+        <div class="specimen">
+          <span class="disp" style="font-family:'Baloo 2', monospace;">Baloo 2</span>
+          <span class="sub">Título y cuerpo — redonda, cálida, fácil de leer para mamá y papá</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ OPTION B ============ -->
+    <div class="option opt-b">
+      <div class="device">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="statusicons">
+              <svg viewBox="0 0 20 12" width="18" height="11" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="10" y="2" width="3" height="10" rx="0.5" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 12" width="22" height="11" fill="none"><rect x="0.5" y="0.5" width="19" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="15" height="8" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+          <div class="content">
+            <div class="app-head">
+              <div class="brand">
+                <div class="logo-chip"><svg viewBox="0 0 24 24" fill="none"><path d="M4 11a8 8 0 1 1 4 6.9L4 19l1.3-3.6A7.9 7.9 0 0 1 4 11Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
+                <span>HablaPronto</span>
+              </div>
+              <div class="streak">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c1.5 1 2 3 2 4.5A5.5 5.5 0 0 1 6 15.5C6 10 12 8 12 2Z" fill="currentColor"/></svg>
+                <span>5 días</span>
+              </div>
+            </div>
+
+            <div class="greeting">
+              <h2>¡Hola, Mateo!</h2>
+              <p>Hoy toca practicar la letra <b>A</b> · reto de 5 minutos</p>
+            </div>
+
+            <div class="scroll-area">
+              <div class="mascot-wrap">
+                <svg class="mascot" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="34" rx="22" ry="20" fill="#2FA8D8"/><circle cx="24" cy="30" r="4" fill="#fff"/><circle cx="40" cy="30" r="4" fill="#fff"/><circle cx="24" cy="31" r="2" fill="#1D3B47"/><circle cx="40" cy="31" r="2" fill="#1D3B47"/><path d="M24 42c3 3 13 3 16 0" stroke="#0F2A34" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="36" r="3" fill="#F28C1B" opacity="0.7"/><circle cx="48" cy="36" r="3" fill="#F28C1B" opacity="0.7"/></svg>
+              </div>
+              <div class="bubble">
+                <div class="word-bubble"><span class="letter">A</span>RAÑA</div>
+                <div class="cta-word" style="font-size:12.5px;font-weight:600;color:var(--text-secondary);">Toca el micrófono y repite</div>
+                <div class="wave">
+                  <i style="height:10px;"></i><i style="height:22px;"></i><i style="height:14px;"></i><i style="height:30px;"></i><i style="height:18px;"></i><i style="height:26px;"></i><i style="height:12px;"></i>
+                </div>
+                <div class="mic-btn"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+              </div>
+
+              <div class="progressrow">
+                <svg class="ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" stroke="#DCEEF4" stroke-width="5" fill="none"/><circle cx="20" cy="20" r="16" stroke="#2FA8D8" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="35" transform="rotate(-90 20 20)"/></svg>
+                <div class="progresstext"><strong>6 de 9 sonidos dominados</strong><span>Vocal A casi completa</span></div>
+              </div>
+            </div>
+
+            <div class="bottomnav">
+              <div class="navitem active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Hoy</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M11 20V4M18 20v-7"/></svg><span>Progreso</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/></svg><span>Biblioteca</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Ajustes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <div class="caption">
+        <span class="tag" style="color:#082733;">Opción B</span>
+        <h3>Burbuja Habladora</h3>
+        <p>Una mascota amigable y una burbuja de diálogo enmarcan cada palabra — como si tu app "hablara" con el niño. La onda de sonido anima al pequeño a repetir. La más juguetona e interactiva de las tres.</p>
+        <div class="swatches">
+          <div class="swatch" style="background:#FCF7EA;"></div>
+          <div class="swatch" style="background:#2FA8D8;"></div>
+          <div class="swatch" style="background:#F28C1B;"></div>
+          <div class="swatch" style="background:#25313A;"></div>
+        </div>
+        <div class="specimen">
+          <span class="disp" style="font-family:'Fredoka', sans-serif;">Fredoka</span>
+          <span class="sub">Título y cuerpo — más redondeada aún, sensación de dibujo animado suave</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ OPTION C ============ -->
+    <div class="option opt-c">
+      <div class="device">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="statusbar">
+            <span>9:41</span>
+            <div class="statusicons">
+              <svg viewBox="0 0 20 12" width="18" height="11" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="10" y="2" width="3" height="10" rx="0.5" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 12" width="22" height="11" fill="none"><rect x="0.5" y="0.5" width="19" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="15" height="8" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+          <div class="content">
+            <div class="app-head">
+              <div class="brand">
+                <div class="logo-chip"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
+                <span>HablaPronto</span>
+              </div>
+              <div class="streak">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 5.5 6 .5-4.5 4 1.4 5.9-5.3-3.3-5.3 3.3 1.4-5.9-4.5-4 6-.5z" fill="currentColor"/></svg>
+                <span>5 días</span>
+              </div>
+            </div>
+
+            <div class="greeting">
+              <h2>¡Hola, Mateo!</h2>
+              <p>Hoy toca practicar la letra <b>A</b> · reto de 5 minutos</p>
+            </div>
+
+            <div class="scroll-area">
+              <div class="storycard">
+                <svg width="68" height="68" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="#F3D9AE"/><path d="M18 26c4-8 24-8 28 0" stroke="#B0602A" stroke-width="2.2" stroke-linecap="round" fill="none"/><circle cx="25" cy="30" r="2.4" fill="#3B2E1E"/><circle cx="39" cy="30" r="2.4" fill="#3B2E1E"/><path d="M25 38c2 3 12 3 14 0" stroke="#3B2E1E" stroke-width="2.2" stroke-linecap="round"/></svg>
+                <div class="word-story"><span class="letter">A</span>RAÑA</div>
+                <div class="cta-word" style="font-size:12.5px;font-weight:600;color:var(--text-secondary);">Escucha, y cuando quieras, repite</div>
+                <div class="mic-btn"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+                <div class="timeline">
+                  <div class="tnode done"></div><div class="tline" style="background:#E8B04D;"></div>
+                  <div class="tnode done"></div><div class="tline" style="background:#E8B04D;"></div>
+                  <div class="tnode active"></div><div class="tline"></div>
+                  <div class="tnode"></div><div class="tline"></div>
+                  <div class="tnode"></div>
+                </div>
+              </div>
+
+              <div class="progressrow">
+                <svg class="ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" stroke="#EDDDB9" stroke-width="5" fill="none"/><circle cx="20" cy="20" r="16" stroke="#D97D3E" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="35" transform="rotate(-90 20 20)"/></svg>
+                <div class="progresstext"><strong>6 de 9 sonidos dominados</strong><span>Vocal A casi completa</span></div>
+              </div>
+            </div>
+
+            <div class="bottomnav">
+              <div class="navitem active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Hoy</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M11 20V4M18 20v-7"/></svg><span>Progreso</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/></svg><span>Biblioteca</span></div>
+              <div class="navitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Ajustes</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-indicator"></div>
+      </div>
+
+      <div class="caption">
+        <span class="tag" style="color:#33190A;">Opción C</span>
+        <h3>Cuento Cálido</h3>
+        <p>Textura de papel suave, ilustración tipo libro de cuentos y un camino de hitos en vez de barra de progreso. Menos "juego de pantalla", más "libro que acompaña" — la más confiable y calmada de las tres.</p>
+        <div class="swatches">
+          <div class="swatch" style="background:#FBF3E3;"></div>
+          <div class="swatch" style="background:#D97D3E;"></div>
+          <div class="swatch" style="background:#E8B04D;"></div>
+          <div class="swatch" style="background:#3B2E1E;"></div>
+        </div>
+        <div class="specimen">
+          <span class="disp" style="font-family:'Baloo 2', monospace;font-weight:600;">Baloo 2</span>
+          <span class="sub">Mismo peso más suave — menos gruesa que en la Opción A, tono más sereno</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

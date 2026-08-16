@@ -1,0 +1,75 @@
+@import "tailwindcss";
+@import "../components/landing/tokens.css";
+
+/* HablaPronto es deliberadamente claro (FICHA-ARTE.md: "claro casi siempre gana en kids,
+   mundo diurno y colorido") — no se deriva variante oscura para esta primera versión. */
+
+/* Fondo con profundidad (55 gate G) en TODA la app — mesh/radial muy sutil del acento,
+   nunca fill plano. Se aplica a body para que landing, onboarding y paywall lo compartan. */
+body {
+  background-color: var(--bg);
+  /* Subido de 6-8% a 16-20% + radios más grandes (round 6 del revisor: "imperceptible
+     en el screenshot" en 2 pantallas distintas — la versión anterior se apagaba antes
+     de cubrir pantallas altas como onboarding/paywall). */
+  background-image:
+    radial-gradient(1100px 640px at 50% -10%, color-mix(in oklab, var(--accent) 16%, transparent) 0%, transparent 65%),
+    radial-gradient(820px 560px at 100% 0%, color-mix(in oklab, var(--accent-2) 20%, transparent) 0%, transparent 60%),
+    radial-gradient(700px 500px at 0% 100%, color-mix(in oklab, var(--brand-gold) 12%, transparent) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Botón "flotante y glossy" (pedido explícito del usuario, sesión de página de
+   ventas): borde grueso, degradé, halo de color naranja+verde y brillo diagonal —
+   mismo lenguaje visual que los botones de la app (FICHA-ARTE.md). */
+.hablapronto-cta {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 82%, white), var(--accent));
+  border-color: color-mix(in oklab, var(--accent) 55%, black);
+  border-bottom-width: 5px;
+  box-shadow:
+    0 12px 28px -8px color-mix(in oklab, var(--accent) 55%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--accent-2) 24%, transparent);
+  transition: transform 150ms var(--ease-out, ease-out), box-shadow 150ms;
+}
+.hablapronto-cta:hover {
+  box-shadow:
+    0 14px 32px -8px color-mix(in oklab, var(--accent) 60%, transparent),
+    0 0 0 5px color-mix(in oklab, var(--accent-2) 30%, transparent);
+}
+.hablapronto-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--accent-2);
+  text-shadow:
+    -1.5px -1.5px 0 var(--text-primary), 1.5px -1.5px 0 var(--text-primary),
+    -1.5px 1.5px 0 var(--text-primary), 1.5px 1.5px 0 var(--text-primary),
+    -1.5px 0 0 var(--text-primary), 1.5px 0 0 var(--text-primary),
+    0 -1.5px 0 var(--text-primary), 0 1.5px 0 var(--text-primary);
+}
+/* Hairline degradé (55 gate G) — misma técnica que <Hairline> de components/landing/ui.tsx,
+   como clase reutilizable de globals.css para el elemento "esto importa" de cada pantalla
+   (garantía/plan recomendado). padding-box/border-box: NUNCA regar, máx 1-3 usos por vista. */
+.hairline-degrade {
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(135deg, color-mix(in oklab, var(--accent) 55%, transparent), transparent 60%) border-box;
+}
+.hablapronto-cta-sheen {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+  transform: rotate(-18deg);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}

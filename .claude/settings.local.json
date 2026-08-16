@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"C:\\\\Users\\\\loddy\\\\Downloads\" 2>&1 | head -50)",
+      "Bash(unzip -o -q \"C:\\\\Users\\\\loddy\\\\Downloads\\\\SO-apps-v6.2.0.zip\" -d .)",
+      "Bash(mv \"SO-apps-v6.2.0/.claude/agents\" .claude/agents)",
+      "Bash(mv \"SO-apps-v6.2.0/.claude/commands\" .claude/commands)",
+      "Bash(mv \"SO-apps-v6.2.0/.claude/hooks\" .claude/hooks)",
+      "Bash(mv \"SO-apps-v6.2.0/.claude/settings.json\" .claude/settings.json)",
+      "Bash(mv \"SO-apps-v6.2.0/.mcp.json\" .)",
+      "WebSearch"
+    ]
+  }
+}
